@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamento de Serviços - Petshop</title>
+    <style>
+        /* Estilos globais */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #026b6e;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        footer {
+            background-color: #026b6e;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Container do formulário */
+        .scheduling-container {
+            max-width: 600px;
+            margin: 80px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .scheduling-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #026b6e;
+        }
+
+        /* Estilização dos campos do formulário */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #026b6e;
+            outline: none;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.4);
+        }
+
+        /* Botão */
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #026b6e;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #026b6e;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .scheduling-container {
+                margin: 20px;
+                padding: 15px;
+            }
+
+            header, footer {
+                font-size: 14px;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>PetManias - Agendamento de Serviços</h1>
+    </header>
+
+    <main>
+        <section class="scheduling-container">
+            <h2>Agende um Serviço</h2>
+            <form id="serviceSchedulingForm">
+                <div class="form-group">
+                    <label for="petName">Nome do Pet:</label>
+                    <input type="text" id="petName" name="petName" placeholder="Digite o nome do pet" required>
+                </div>
+                <div class="form-group">
+                    <label for="ownerName">Nome do Dono:</label>
+                    <input type="text" id="ownerName" name="ownerName" placeholder="Digite o nome do dono" required>
+                </div>
+                <div class="form-group">
+                    <label for="serviceType">Tipo de Serviço:</label>
+                    <select id="serviceType" name="serviceType" required>
+                        <option value="" disabled selected>Selecione um serviço</option>
+                        <option value="banho">Banho</option>
+                        <option value="tosa">Tosa</option>
+                        <option value="consulta">Consulta</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="appointmentDate">Data do Agendamento:</label>
+                    <input type="date" id="appointmentDate" name="appointmentDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="appointmentTime">Horário:</label>
+                    <input type="time" id="appointmentTime" name="appointmentTime" required>
+                </div>
+                <button type="submit">Agendar Serviço</button>
+            </form>
+        </section>
+    </main>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const serviceSchedulingForm = document.getElementById("serviceSchedulingForm");
+
+            serviceSchedulingForm.addEventListener("submit", async (event) => {
+                event.preventDefault();
+
+                const petName = document.getElementById("petName").value;
+                const ownerName = document.getElementById("ownerName").value;
+                const serviceType = document.getElementById("serviceType").value;
+                const appointmentDate = document.getElementById("appointmentDate").value;
+                const appointmentTime = document.getElementById("appointmentTime").value;
+
+                try {
+                    const response = await fetch("http://localhost:8080/api/appointments", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            petName,
+                            ownerName,
+                            serviceType,
+                            appointmentDate,
+                            appointmentTime
+                        })
+                    });
+
+                    if (response.ok) {
+                        alert("Serviço agendado com sucesso!");
+                        serviceSchedulingForm.reset();
+                    } else {
+                        alert("Erro ao agendar serviço. Tente novamente.");
+                    }
+                } catch (error) {
+                    console.error("Erro ao conectar ao servidor:", error);
+                    alert("Erro ao conectar ao servidor. Tente novamente mais tarde.");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+<!-- @RestController
+@RequestMapping("/api")
+public class AppointmentController {
+
+    @PostMapping("/appointments")
+    public ResponseEntity<?> scheduleAppointment(@RequestBody Appointment appointment) {
+        if (appointment.getPetName() == null || appointment.getOwnerName() == null || 
+            appointment.getServiceType() == null || appointment.getAppointmentDate() == null) {
+            return ResponseEntity.badRequest().body("Dados do agendamento inválidos");
+        }
+        // Simula salvar no banco
+        return ResponseEntity.ok("Agendamento realizado com sucesso");
+    }
+
+    public static class Appointment {
+        private String petName;
+        private String ownerName;
+        private String serviceType;
+        private String appointmentDate;
+        private String appointmentTime;
+
+        // Getters e Setters
+    }
+} -->

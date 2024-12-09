@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Serviço</title>
+</head>
+<body>
+    <header>
+        <h1>PetShop - Registrar Serviço</h1>
+    </header>
+
+    <main>
+        <section>
+            <h2>Cadastrar Serviço</h2>
+            <form id="serviceForm">
+                <div>
+                    <label for="nameService"></label>
+                    <input type="text" id="nameService" placeholder="Digite o serviço que você quer" required> 
+                </div>
+
+                <div>
+                    <label for="describeService">Descrição de serviço</label>
+                    <textarea id="describeService" placeholder="Digite a descrição do serviço" rows="4"></textarea>
+                </div>
+
+                <div>
+                    <label for="priceService"></label>
+                    <input type="text" id="priceService" placeholder="Digite o valor do serviço" step="0,01" required>
+                </div>
+                <button type="submit">Cadastrar serviço</button>
+            </form>
+            
+        </section>
+    </main>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+    const loginForm = document.getElementById("serviceForm");
+
+    serviceForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const nameService = document.getElementById("#nameService").value;
+        const describeService = document.querySelectorAll("#describeService").value;
+        const priceService = document.querySelector("#priceService").value;
+        
+
+        try {
+            const response = await fetch("http://localhost:8080/api/login&quot;", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ nomePet, especiePet, pesoPet, idadePet })
+            });
+
+            if (response.ok) {
+                alert("Login bem-sucedido!");
+                window.location.href = "./index";
+            } else {
+                alert("E-mail ou senha incorretos. Tente novamente.");
+            }
+        } catch (error) {
+            console.error("Erro ao conectar ao servidor:", error);
+            alert("Erro ao conectar ao servidor. Tente novamente mais tarde.");
+        }
+    });
+});
+
+    </script>
+
+    <footer>
+        <p>&copy; 2024 Carinhos e patas - Todos direitos reservados.</p>
+    </footer>
+</body>
+</html>

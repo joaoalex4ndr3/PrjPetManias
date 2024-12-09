@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar pet</title>
+</head>
+<body>
+    <header>
+        <h1>registrar pet</h1>
+    </header>
+    
+    <main>
+        <section>   
+            <h2>cadastre seu pet</h2>
+            <form id="cadastroPet"></form>
+            <div>
+                <label for="petName"> Nome do pet: </label>
+                <input type="text" id="petName" placeholder="Digite o nome do seu pet" required id="petName">
+            </div>
+            <div>
+                <label for="petType">Especie</label>
+                <select id="petType" required>
+                    <option value="" disabled selected>Selecione a Especie</option>
+                    <option value="Cachorro">Cachorro</option>
+                    <option value="Gato">Gato</option>
+                    <option value="Aves">Aves</option>
+                    <option value="Peixes">Peixes</option>
+                </select>
+            </div>
+            <div>
+                <label for="petAge">Idade Pet (Em anos)</label>
+                <input type="text" id="petAge" placeholder="Digite a idade do pet">
+            </div>
+            <div>
+                <label for="petWeight">Peso pet (em KG)</label>
+                <input type="number" id="petWeight" placeholder="Digite o peso do seu pet">
+            </div>
+            <button>cadastre-se</button>
+        </section>
+    </main>
+</body>
+<footer>
+    <p>&copy; 2024 Carinhos e patas - Todos direitos reservados.</p>
+</footer>
+<main>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+    const loginForm = document.getElementById("loginForm");
+
+    loginForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const nomePet = document.getElementById("nomePet").value;
+        const epeciePet = document.getElementById("especiePet").value;
+        const pesoPet = document.getElementById("pesoPet");
+        const idadePet = document.getElementById("idadePet");
+
+        try {
+            const response = await fetch("http://localhost:8080/api/login&quot;", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ nomePet, especiePet, pesoPet, idadePet })
+            });
+
+            if (response.ok) {
+                alert("Login bem-sucedido!");
+                window.location.href = "./index";
+            } else {
+                alert("E-mail ou senha incorretos. Tente novamente.");
+            }
+        } catch (error) {
+            console.error("Erro ao conectar ao servidor:", error);
+            alert("Erro ao conectar ao servidor. Tente novamente mais tarde.");
+        }
+    });
+});
+
+    </script>
+</main>
+</html>

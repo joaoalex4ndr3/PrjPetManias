@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro do Pet - PetMania</title>
+    <style>
+        /* Estilos Globais */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* Cabeçalho */
+        header {
+            background-color: #026b6e;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+
+        /* Container de Cadastro de Pet */
+        .pet-registration-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .pet-registration-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #026b6e;
+            font-size: 1.8em;
+        }
+
+        /* Estilo dos Campos de Formulário */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #026b6e;
+            outline: none;
+        }
+
+        /* Botão de Cadastro */
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #026b6e;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #026b6e;
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+
+        footer p {
+            font-size: 0.9em;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>PetMania - Cadastro do Pet</h1>
+    </header>
+
+    <main>
+        <section class="pet-registration-container">
+            <h2>Cadastro do Pet</h2>
+            <form id="petRegistrationForm">
+                <div class="form-group">
+                    <label for="petName">Nome do Pet:</label>
+                    <input type="text" id="petName" name="petName" placeholder="Digite o nome do seu pet" required>
+                </div>
+                <div class="form-group">
+                    <label for="petType">Tipo do Pet:</label>
+                    <select id="petType" name="petType" required>
+                        <option value="" disabled selected>Selecione o tipo</option>
+                        <option value="Cachorro">Cachorro</option>
+                        <option value="Gato">Gato</option>
+                        <option value="Pássaro">Pássaro</option>
+                        <option value="Outro">Outro</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="petAge">Idade do Pet (em anos):</label>
+                    <input type="number" id="petAge" name="petAge" placeholder="Digite a idade do pet" required>
+                </div>
+                <div class="form-group">
+                    <label for="petWeight">Peso do Pet (em kg):</label>
+                    <input type="number" id="petWeight" name="petWeight" step="0.1" placeholder="Digite o peso do pet" required>
+                </div>
+                <button type="submit">Cadastrar Pet</button>
+            </form>
+        </section>
+    </main>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const petRegistrationForm = document.getElementById("petRegistrationForm");
+
+            petRegistrationForm.addEventListener("submit", async (event) => {
+                event.preventDefault();
+
+                const petName = document.getElementById("petName").value;
+                const petType = document.getElementById("petType").value;
+                const petAge = document.getElementById("petAge").value;
+                const petWeight = document.getElementById("petWeight").value;
+
+                try {
+                    const response = await fetch("http://localhost:8080/api/pets", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ petName, petType, petAge, petWeight })
+                    });
+
+                    if (response.ok) {
+                        alert("Pet cadastrado com sucesso!");
+                        petRegistrationForm.reset();
+                    } else {
+                        alert("Erro no cadastro do pet. Tente novamente.");
+                    }
+                } catch (error) {
+                    console.error("Erro ao conectar ao servidor:", error);
+                    alert("Erro ao conectar ao servidor. Tente novamente mais tarde.");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+

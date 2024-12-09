@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Petshop - Home</title>
+  <style>
+    /* Corpo geral */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #f8f9fa, #f0f0f5);
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* Cabeçalho */
+    header {
+      background: linear-gradient(to right, #026b6e, #026b6e);
+      padding: 20px;
+      text-align: center;
+      color: white;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      letter-spacing: 1.5px;
+      font-weight: bold;
+    }
+
+    nav {
+      margin-top: 10px;
+    }
+
+    nav a {
+      display: inline-block;
+      margin: 0 8px;
+      color: white;
+      text-decoration: none;
+      padding: 10px 15px;
+      border-radius: 25px;
+      background-color: rgba(255, 255, 255, 0.2);
+      transition: all 0.3s ease-in-out;
+    }
+
+    nav a:hover {
+      background-color: white;
+      color: #026b6e;
+      font-weight: bold;
+    }
+
+    /* Conteúdo principal */
+    main {
+      padding: 30px;
+      max-width: 1200px;
+      margin: 30px auto;
+    }
+
+    section {
+      background-color: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    section:hover {
+      transform: scale(1.02);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 15px;
+      color: #026b6e;
+      border-bottom: 3px solid #026b6e;
+      padding-bottom: 8px;
+      letter-spacing: 1px;
+    }
+
+    section p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #555;
+    }
+
+    section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    section ul li {
+      background-color: #f0f0f5;
+      margin: 10px 0;
+      padding: 15px;
+      border-radius: 8px;
+      display: inline-block;
+      font-weight: bold;
+      color: #555;
+      border: 2px solid #026b6e;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    section ul li:hover {
+      background-color: #026b6e;
+      color: white;
+    }
+
+    /* Rodapé */
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 0.9rem;
+      position: relative;
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    /* Botão flutuante */
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #026b6e;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      padding: 15px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .back-to-top:hover {
+      background-color: #026b6e;
+      transform: scale(1.1);
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.8rem;
+      }
+
+      nav a {
+        padding: 8px 10px;
+        font-size: 0.9rem;
+      }
+
+      main {
+        padding: 15px;
+      }
+
+      section h2 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Bem-vindo ao PetManias!</h1>
+    <nav>
+      <a href="/login.html">Login</a>
+      <a href="./singup.html">Cadastre-se</a>
+      <a href="./pet-register.html">Registrar Pet</a>
+      <a href="./service-registration.html">Serviços</a>
+      <a href="./service-scheduling.html">Agendamento</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>Um pouco sobre Nós</h2>
+      <p>
+        A PetMania é uma loja dedicada ao bem-estar e felicidade dos pets, criada para atender a todos os tipos de animais de estimação com carinho, atenção e os melhores produtos do mercado.
+      </p>
+      <p>
+        Nosso espaço é acolhedor, projetado para que os donos e seus animais se sintam em casa. Vem fazer parte dessa mania de cuidar dos pets com amor e dedicação!
+      </p>
+    </section>
+
+    <section>
+      <h2>Principais Serviços</h2>
+      <ul>
+        <li>Banho e Tosa</li>
+        <li>Consulta Veterinária</li>
+        <li>Hospedagem</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 PetManias - Todos os direitos reservados.</p>
+  </footer>
+
+  <button class="back-to-top" onclick="scrollToTop()">↑</button>
+
+  <script>
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
+
